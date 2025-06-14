@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Products</title>
+    <link rel="stylesheet" href="userProducts.css">
+</head>
+<body>
+    <div class="top-bar">
+        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
+    </div>
+   <div class="header">
+  <div class="logo">E-commerce</div>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+    <button class="shop-btn">Shop</button>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" placeholder="What are you looking for?" />
+  </div>
+
+  <div class="user-section">
+    <img src="fotolar/cart.png" alt="Cart">
+
+    <span style="font-size: 14px;">test</span>
+    <button class="logout-btn">Log Out</button>
+  </div>
+</div>
+
+
+      <a href="./create product.html"><button class="btn-new">Yeni məhsul</button></a>
+
+      <table class="product-list">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Продукты будут загружены динамически -->
+        </tbody>
+      </table>
+</body>
+      <script>
+        let products = [];
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Проверяем авторизацию
+            function checkAuth() {
+                const username = localStorage.getItem("username");
+                console.log('Username from localStorage:', username);
+                
+                if (!username) {
+                    alert("Пользователь не найден. Пожалуйста, войдите в систему.");
+                    // Раскомментируй следующую строку, если хочешь автоматически перенаправлять на страницу входа
+                    // window.location.href = 'login.html';
+                    return null;
+                }
+                
+                return username;
+            }
+
+            // Загружаем продукты пользователя из API
+            function loadUserProducts() {
+                const username = checkAuth();
+                if (!username) return;
+
+                console.log('Загружаем продукты для пользователя:', username);
+
+                fetch(`http://localhost:8080/api/products/user/${username}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(apiProducts => {
+                        console.log('Получены продукты из API:', apiProducts);
+                        
+                        // Преобразуем данные из API в формат для таблицы (используем только нужные поля)
+                        products = apiProducts.map(product => ({
+                            id: product.id,
+                            name: product.name || 'N/A',
+                            description: product.description || '',
+                            category: product.category || 'N/A',
+                            image: product.image || 'fotolar/default.jpg',
+                            price: product.price || 0,
+                            rating: product.rating || 5
+                        }));
+                        
+                        updateTable();
+                    })
+                    .catch(error => {
+                        console.error("Ошибка при получении продуктов:", error);
+                        
+                        // Показываем сообщение об ошибке в таблице
+                        const tableBody = document.querySelector('tbody');
+                        tableBody.innerHTML = `
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 20px; color: #f44336;">
+                                    Ошибка при загрузке продуктов: ${error.message}<br>
+                                    <button onclick="loadUserProducts()" style="margin-top: 10px; padding: 5px 15px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                        Повторить попытку
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+            }
+
+            // Глобально доступная функция для повторной загрузки
+            window.loadUserProducts = loadUserProducts;
+
+            // Запускаем загрузку продуктов
+            loadUserProducts();
+
+    // Redaktə modal pəncərəsini yaratma funksiyası
+    function createModals() {
+        // Modal pəncərələri yaradaq
+        const editModalHTML = `
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Məhsulu Redaktə et</h2>
+                    <form id="editForm">
+                        <input type="hidden" id="editId">
+                        <div class="form-group">
+                            <label for="editName">Ad:</label>
+                            <input type="text" id="editName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCategory">Kateqoriya:</label>
+                            <input type="text" id="editCategory" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDescription">Təsvir:</label>
+                            <textarea id="editDescription" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editImage">Şəkil URL:</label>
+                            <input type="url" id="editImage" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPrice">Qiymət:</label>
+                            <input type="number" id="editPrice" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editRating">Reytinq:</label>
+                            <select id="editRating" required>
+                                <option value="1">1/5</option>
+                                <option value="2">2/5</option>
+                                <option value="3">3/5</option>
+                                <option value="4">4/5</option>
+                                <option value="5">5/5</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-save">Yadda saxla</button>
+                    </form>
+                </div>
+            </div>
+        `;
+
+        const confirmationModalHTML = `
+            <div id="confirmationModal" class="modal">
+                <div class="modal-content">
+                    <h2>Diqqət!</h2>
+                    <p>Bu məhsulu silmək istədiyinizə əminsiniz?</p>
+                    <div class="confirmation-buttons">
+                        <button id="confirmDelete" class="btn-delete">Bəli, sil</button>
+                        <button id="cancelDelete" class="btn-cancel">Xeyr, ləğv et</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Modal HTML-i body-ə əlavə et
+        const modalContainer = document.createElement('div');
+        modalContainer.innerHTML = editModalHTML + confirmationModalHTML;
+        document.body.appendChild(modalContainer);
+
+        // CSS-i əlavə et
+        const style = document.createElement('style');
+        style.textContent = `
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.4);
+            }
+            
+            .modal-content {
+                background-color: #fff;
+                margin: 5% auto;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                width: 80%;
+                max-width: 500px;
+                position: relative;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            
+            .close {
+                position: absolute;
+                right: 15px;
+                top: 10px;
+                font-size: 24px;
+                font-weight: bold;
+                cursor: pointer;
+                color: #999;
+            }
+            
+            .close:hover {
+                color: #333;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            
+            .form-group input, .form-group select, .form-group textarea {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-family: Arial, sans-serif;
+            }
+            
+            .form-group textarea {
+                resize: vertical;
+            }
+            
+            .btn-save {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                width: 100%;
+                font-size: 16px;
+            }
+            
+            .btn-save:hover {
+                background-color: #45a049;
+            }
+            
+            .btn-cancel {
+                background-color: #ccc;
+                color: #333;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            
+            .btn-cancel:hover {
+                background-color: #bbb;
+            }
+            
+            .confirmation-buttons {
+                display: flex;
+                justify-content: space-evenly;
+                margin-top: 20px;
+            }
+            
+            .product-image {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            
+            .product-image:hover {
+                transform: scale(1.1);
+                transition: transform 0.3s ease;
+            }
+            
+            .btn-edit, .btn-delete {
+                margin: 2px;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            
+            .btn-edit {
+                background-color: #2196F3;
+                color: white;
+            }
+            
+            .btn-edit:hover {
+                background-color: #1976D2;
+            }
+            
+            .btn-delete {
+                background-color: #f44336;
+                color: white;
+            }
+            
+            .btn-delete:hover {
+                background-color: #d32f2f;
+            }
+            
+            .product-id {
+                font-weight: bold;
+                color: #666;
+            }
+            
+            .product-price {
+                color: #4CAF50;
+                font-weight: bold;
+            }
+            
+            .product-rating {
+                color: #FF9800;
+                font-weight: bold;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Cədvəl məlumatlarını yeniləmə funksiyası
+    function updateTable() {
+        const tableBody = document.querySelector('tbody');
+        tableBody.innerHTML = '';
+        
+        if (products.length === 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td colspan="7" style="text-align: center; padding: 20px; color: #666;">
+                    Hələ heç bir məhsul əlavə edilməyib. <br>
+                    <a href="./create product.html" style="color: #2196F3; text-decoration: none;">Yeni məhsul əlavə et</a>
+                </td>
+            `;
+            tableBody.appendChild(row);
+            return;
+        }
+        
+        products.forEach(product => {
+            const row = document.createElement('tr');
+            
+            // Rating formatını düzəlt
+            const ratingDisplay = typeof product.rating === 'number' 
+                ? `${product.rating}/5` 
+                : product.rating;
+            
+            // Price formatını düzəlt
+            const priceDisplay = typeof product.price === 'number' 
+                ? product.price.toLocaleString() 
+                : product.price;
+            
+            row.innerHTML = `
+                <td class="product-id">${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.category}</td>
+                <td>
+                    <img src="${product.image}" 
+                         alt="${product.name}" 
+                         class="product-image"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yNSAyMEMyNi4zODA3IDIwIDI3LjUgMjEuMTE5MyAyNy41IDIyLjVDMjcuNSAyMy44ODA3IDI2LjM4MDcgMjUgMjUgMjVDMjMuNjE5MyAyNSAyMi41IDIzLjg4MDcgMjIuNSAyMi41QzIyLjUgMjEuMTE5MyAyMy42MTkzIDIwIDI1IDIwWiIgZmlsbD0iIzk5OTk5OSIvPgo8cGF0aCBkPSJNMTUgMzVMMjAgMzBMMjUgMzVMMzAgMzBMMzUgMzUiIHN0cm9rZT0iIzk5OTk5OSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg=='">
+                </td>
+                <td class="product-price">${priceDisplay} $</td>
+                <td class="product-rating">${ratingDisplay}</td>
+                <td>
+                    <button class="btn-edit" data-id="${product.id}" title="Redaktə et">Redaktə et</button>
+                    <button class="btn-delete" data-id="${product.id}" title="Sil">Sil</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+        
+        // Hadisələri yenidən əlavə et
+        addEventListeners();
+    }
+
+    // Hadisələri əlavə etmək funksiyası
+    function addEventListeners() {
+        // Redaktə düymələrinə kliklənmə hadisəsi
+        document.querySelectorAll('.btn-edit').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                openEditModal(productId);
+            });
+        });
+        
+        // Silmə düymələrinə kliklənmə hadisəsi
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                openDeleteConfirmation(productId);
+            });
+        });
+        
+        // Modal bağlama düymələri
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            });
+        });
+        
+        // Modallara kənar kliklənmə
+        window.addEventListener('click', function(event) {
+            document.querySelectorAll('.modal').forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        
+        // Redaktə formu təqdimi
+        const editForm = document.getElementById('editForm');
+        if (editForm) {
+            editForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveEditedProduct();
+            });
+        }
+        
+        // Silməni təsdiq düyməsi
+        const confirmDelete = document.getElementById('confirmDelete');
+        if (confirmDelete) {
+            confirmDelete.addEventListener('click', function() {
+                deleteProduct();
+            });
+        }
+        
+        // Silməni ləğv düyməsi
+        const cancelDelete = document.getElementById('cancelDelete');
+        if (cancelDelete) {
+            cancelDelete.addEventListener('click', function() {
+                document.getElementById('confirmationModal').style.display = 'none';
+            });
+        }
+    }
+
+    // Redaktə modalını açma funksiyası
+    function openEditModal(productId) {
+        const product = products.find(p => p.id == productId);
+        if (product) {
+            document.getElementById('editId').value = product.id;
+            document.getElementById('editName').value = product.name;
+            document.getElementById('editCategory').value = product.category;
+            document.getElementById('editDescription').value = product.description || '';
+            document.getElementById('editImage').value = product.image;
+            document.getElementById('editPrice').value = typeof product.price === 'number' ? product.price : parseFloat(product.price) || 0;
+            document.getElementById('editRating').value = typeof product.rating === 'number' ? product.rating : parseInt(product.rating) || 1;
+            
+            document.getElementById('editModal').style.display = 'block';
+        }
+    }
+
+    // Silmə təsdiq modalını açma funksiyası
+    function openDeleteConfirmation(productId) {
+        document.getElementById('confirmDelete').setAttribute('data-id', productId);
+        document.getElementById('confirmationModal').style.display = 'block';
+    }
+
+    // Redaktə edilmiş məhsulu yadda saxlama funksiyası
+    function saveEditedProduct() {
+        const productId = document.getElementById('editId').value;
+        const productIndex = products.findIndex(p => p.id == productId);
+        
+        if (productIndex !== -1) {
+            products[productIndex] = {
+                ...products[productIndex], // Keep existing properties
+                name: document.getElementById('editName').value,
+                category: document.getElementById('editCategory').value,
+                description: document.getElementById('editDescription').value,
+                image: document.getElementById('editImage').value,
+                price: parseFloat(document.getElementById('editPrice').value),
+                rating: parseInt(document.getElementById('editRating').value),
+                updatedAt: new Date().toISOString()
+            };
+            
+            updateTable();
+            document.getElementById('editModal').style.display = 'none';
+            
+            // Dəyişiklikləri uğurla bildirmək
+            showMessage('Məhsul uğurla yeniləndi!', 'success');
+        }
+    }
+
+    // Məhsul silmə funksiyası  
+    function deleteProduct() {
+    const productId = document.getElementById('confirmDelete').getAttribute('data-id');
+
+    fetch(`http://localhost:8080/api/products/deleteProduct/${productId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Silinmə zamanı xəta baş verdi');
+        }
+
+        // Только если успешно удалено на сервере — удаляем локально
+        products = products.filter(p => p.id != productId);
+        updateTable();
+        document.getElementById('confirmationModal').style.display = 'none';
+        showMessage('Məhsul uğurla silindi!', 'success');
+    })
+    .catch(error => {
+        console.error("Silinmə zamanı xəta:", error);
+        showMessage('Məhsulu silmək mümkün olmadı', 'error');
+    });
+}
+
+
+
+    // Mesaj göstərmə funksiyası
+    function showMessage(message, type = 'info') {
+        // Remove existing message
+        const existingMessage = document.querySelector('.message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Create message element
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message message-${type}`;
+        messageDiv.innerHTML = message;
+        
+        // Style the message
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-out;
+        `;
+        
+        // Set background color based on type
+        switch(type) {
+            case 'success':
+                messageDiv.style.backgroundColor = '#4CAF50';
+                break;
+            case 'error':
+                messageDiv.style.backgroundColor = '#f44336';
+                break;
+            case 'info':
+                messageDiv.style.backgroundColor = '#2196F3';
+                break;
+            default:
+                messageDiv.style.backgroundColor = '#666';
+        }
+        
+        // Add to page
+        document.body.appendChild(messageDiv);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 300);
+            }
+        }, 3000);
+    }
+
+    // Modalları yaratmaq və initiallaşdırmaq
+    createModals();
+    
+    // Səhifə yüklənərkən yeni məhsul əlavə edilib-edilmədiyini yoxla
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('newProduct') === 'true') {
+        showMessage('Yeni məhsul uğurla əlavə edildi!', 'success');
+        // URL-dan parametri təmizlə
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
+      </script>
+    
+</body>
+</html>

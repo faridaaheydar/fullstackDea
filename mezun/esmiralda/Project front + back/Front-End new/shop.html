@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link rel="stylesheet" href="shop.css" />
+  </head>
+  <body>
+    <div class="top-bar">
+      Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+      <a href="#">ShopNow</a>
+    </div>
+    <div class="header"></div>
+
+    <div class="s">
+      <p class="o">Shop</p>
+      <div class="search-barr">
+        <input type="text" placeholder="search" class="h search-bar" />
+      </div>
+      <div class="btn-prdct">
+        <button class="prod">All products</button>
+      </div>
+
+      <div class="secim">
+        <select id="sort" name="sort" class="sort sort-select">
+          <option value="sort-by">Sort By</option>
+          <option value="price-low-high">Qiymət: Aşağıdan Yuxarı</option>
+          <option value="price-high-low">Qiymət: Yuxarıdan Aşağı</option>
+        </select>
+      </div>
+
+      <section class="main">
+        <div class="categories col">
+          <div class="cat">
+            <p class="c">Category</p>
+          </div>
+          <div class="filters">
+            <div class="filter-options"></div>
+          </div>
+
+          <div class="rate-box">
+            <h3>Rate</h3>
+            <div class="star-row star-rating" data-rating="5">⭐⭐⭐⭐⭐</div>
+            <div class="star-row star-rating" data-rating="4">⭐⭐⭐⭐</div>
+            <div class="star-row star-rating" data-rating="3">⭐⭐⭐</div>
+            <div class="star-row star-rating" data-rating="2">⭐⭐</div>
+            <div class="star-row star-rating" data-rating="1">⭐</div>
+          </div>
+        </div>
+        <div class="products col"></div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-box">
+          <h3>Exclusive</h3>
+          <p>Subscribe</p>
+          <span>Get 10% off your first order</span>
+          <div class="subscribe">
+            <input type="email" placeholder="Enter your email" class="em" />
+            <button>➤</button>
+          </div>
+        </div>
+
+        <div class="footer-box">
+          <h3>Support</h3>
+          <p>111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</p>
+          <p class="EX">exclusive@gmail.com</p>
+          <p>+88015-88888-9999</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Account</h3>
+          <p>My Account</p>
+          <p>Login / Register</p>
+          <p>Cart</p>
+          <p>Wishlist</p>
+          <p>Shop</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Quick Link</h3>
+          <p>Privacy Policy</p>
+          <p>Terms Of Use</p>
+          <p>FAQ</p>
+          <p>Contact</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Download App</h3>
+          <p>Save $3 with App New User Only</p>
+          <div class="qr">
+            <img src="fotolar/qrcode.PNG" alt="QR Code" />
+            <div class="store-btns">
+              <img src="fotolar/google play.PNG" alt="Google Play" />
+              <img src="fotolar/app store.PNG" alt="App Store" />
+            </div>
+          </div>
+
+          <div class="socials">
+            <span><img src="fotolar/ftinin.PNG" alt="" class="ft" /></span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">© Copyright Rimel 2022. All right reserved</div>
+    </footer>
+
+    <script>
+      let activeCategory = null;
+      let activeStarRating = null;
+      let allProducts = [];
+
+      // Функция для создания тестовых данных
+      function createMockProducts() {
+        return [
+          {
+            id: 1,
+            name: "Wireless Headphones",
+            price: 99.99,
+            category: "electronics",
+            rating: 5,
+            image: "https://via.placeholder.com/250x200/ff6b6b/ffffff?text=Headphones",
+            description: "High-quality wireless headphones with noise cancellation and superior sound quality. Perfect for music lovers and professional use."
+          },
+          {
+            id: 2,
+            name: "Cotton T-Shirt",
+            price: 29.99,
+            category: "clothing",
+            rating: 4,
+            image: "https://via.placeholder.com/250x200/4ecdc4/ffffff?text=T-Shirt",
+            description: "Comfortable 100% cotton t-shirt with soft fabric and durable construction. Available in multiple colors and sizes."
+          },
+          {
+            id: 3,
+            name: "Gaming Mouse",
+            price: 59.99,
+            category: "electronics",
+            rating: 5,
+            image: "https://via.placeholder.com/250x200/45b7d1/ffffff?text=Mouse",
+            description: "Professional gaming mouse with RGB lighting, programmable buttons, and high-precision sensor for competitive gaming."
+          },
+          {
+            id: 4,
+            name: "Summer Dress",
+            price: 79.99,
+            category: "clothing",
+            rating: 4,
+            image: "https://via.placeholder.com/250x200/f9ca24/ffffff?text=Dress",
+            description: "Elegant summer dress made from breathable fabric, perfect for casual outings and special occasions."
+          },
+          {
+            id: 5,
+            name: "Smartphone Case",
+            price: 19.99,
+            category: "electronics",
+            rating: 3,
+            image: "https://via.placeholder.com/250x200/6c5ce7/ffffff?text=Case",
+            description: "Protective smartphone case with shock absorption and scratch resistance. Compatible with wireless charging."
+          },
+          {
+            id: 6,
+            name: "Running Shoes",
+            price: 129.99,
+            category: "shoes",
+            rating: 5,
+            image: "https://via.placeholder.com/250x200/a29bfe/ffffff?text=Shoes",
+            description: "Professional running shoes with advanced cushioning technology and breathable mesh upper for maximum comfort."
+          },
+          {
+            id: 7,
+            name: "Bluetooth Speaker",
+            price: 89.99,
+            category: "electronics",
+            rating: 4,
+            image: "https://via.placeholder.com/250x200/fd79a8/ffffff?text=Speaker",
+            description: "Portable Bluetooth speaker with 360-degree sound, waterproof design, and long-lasting battery life."
+          },
+          {
+            id: 8,
+            name: "Jeans",
+            price: 69.99,
+            category: "clothing",
+            rating: 4,
+            image: "https://via.placeholder.com/250x200/00b894/ffffff?text=Jeans",
+            description: "Classic denim jeans with comfortable fit and durable construction. Perfect for everyday wear and casual occasions."
+          },
+          {
+            id: 9,
+            name: "Laptop Stand",
+            price: 39.99,
+            category: "electronics",
+            rating: 3,
+            image: "https://via.placeholder.com/250x200/74b9ff/ffffff?text=Stand",
+            description: "Adjustable laptop stand with ergonomic design, heat dissipation, and stable construction for improved productivity."
+          },
+          {
+            id: 10,
+            name: "Winter Jacket",
+            price: 159.99,
+            category: "clothing",
+            rating: 5,
+            image: "https://via.placeholder.com/250x200/55a3ff/ffffff?text=Jacket",
+            description: "Warm winter jacket with water-resistant fabric, insulated lining, and multiple pockets for outdoor activities."
+          },
+          {
+            id: 11,
+            name: "Smart Watch",
+            price: 199.99,
+            category: "electronics",
+            rating: 5,
+            image: "https://via.placeholder.com/250x200/e17055/ffffff?text=Watch",
+            description: "Advanced smartwatch with fitness tracking, heart rate monitoring, GPS, and smartphone connectivity features."
+          },
+          {
+            id: 12,
+            name: "Casual Sneakers",
+            price: 89.99,
+            category: "shoes",
+            rating: 4,
+            image: "https://via.placeholder.com/250x200/00cec9/ffffff?text=Sneakers",
+            description: "Stylish casual sneakers with comfortable sole and versatile design suitable for daily wear and light activities."
+          },
+        ];
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM loaded, initializing...");
+        loadProducts();
+      });
+
+      function attachEventListeners() {
+        console.log("Attaching event listeners...");
+
+        const searchBar = document.querySelector(".search-bar");
+        const starRatings = document.querySelectorAll(".star-rating");
+        const sortSelect = document.querySelector(".sort-select");
+        const categoryButtons = document.querySelectorAll(".category");
+
+        // Обработчик для поиска
+        if (searchBar) {
+          searchBar.addEventListener("input", (e) => {
+            console.log("Search input:", e.target.value);
+            filterAndDisplayProducts();
+          });
+        }
+
+        // Обработчики для рейтинга
+        starRatings.forEach((star) => {
+          star.addEventListener("click", () => {
+            console.log("Star clicked:", star.getAttribute("data-rating"));
+
+            if (activeStarRating) activeStarRating.classList.remove("active");
+
+            if (activeStarRating === star) {
+              activeStarRating = null;
+            } else {
+              star.classList.add("active");
+              activeStarRating = star;
+            }
+            filterAndDisplayProducts();
+          });
+        });
+
+        // Обработчик для сортировки
+        if (sortSelect) {
+          sortSelect.addEventListener("change", (e) => {
+            console.log("Sort changed:", e.target.value);
+            filterAndDisplayProducts();
+          });
+        }
+
+        // Обработчики для категорий
+        categoryButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            console.log("Category clicked:", btn.getAttribute("data-category"));
+
+            if (activeCategory) activeCategory.classList.remove("active");
+
+            if (activeCategory === btn) {
+              activeCategory = null;
+            } else {
+              btn.classList.add("active");
+              activeCategory = btn;
+            }
+            filterAndDisplayProducts();
+          });
+        });
+
+        // НОВЫЙ ОБРАБОТЧИК: Клики по карточкам продуктов
+        attachProductCardListeners();
+
+        console.log("Event listeners attached successfully");
+      }
+
+      // НОВАЯ ФУНКЦИЯ: Обработчики кликов на карточки продуктов
+      function attachProductCardListeners() {
+        const productCards = document.querySelectorAll(".product-card");
+        
+        productCards.forEach((card) => {
+          // Убираем старые обработчики если есть
+          card.removeEventListener("click", handleProductCardClick);
+          
+          // Добавляем новый обработчик
+          card.addEventListener("click", handleProductCardClick);
+          
+          // Добавляем стиль курсора для указания на кликабельность
+          card.style.cursor = "pointer";
+        });
+      }
+
+      // НОВАЯ ФУНКЦИЯ: Обработчик клика по карточке продукта
+      function handleProductCardClick(event) {
+        // Проверяем, не кликнули ли по кнопке "Add to cart"
+        if (event.target.classList.contains("add-btn")) {
+          event.stopPropagation();
+          return; // Не переходим на страницу продукта, если кликнули по кнопке
+        }
+
+        const productId = event.currentTarget.getAttribute("data-product-id");
+        
+        if (productId) {
+          console.log("Navigating to product page with ID:", productId);
+          
+          // Переходим на страницу продукта с ID в URL
+          window.location.href = `product page.html?id=${productId}`;
+        }
+      }
+
+      function filterAndDisplayProducts() {
+        console.log("Filtering and displaying products...");
+
+        const searchBar = document.querySelector(".search-bar");
+        const sortSelect = document.querySelector(".sort-select");
+
+        let searchValue = "";
+        if (searchBar && searchBar.value) {
+          searchValue = searchBar.value.toLowerCase().trim();
+        }
+
+        let selectedCategory = null;
+        if (activeCategory) {
+          selectedCategory = activeCategory.getAttribute("data-category");
+        }
+
+        let selectedRating = null;
+        if (activeStarRating) {
+          selectedRating = parseInt(
+            activeStarRating.getAttribute("data-rating")
+          );
+        }
+
+        let sortValue = "sort-by";
+        if (sortSelect) {
+          sortValue = sortSelect.value;
+        }
+
+        console.log("Filter params:", {
+          searchValue,
+          selectedCategory,
+          selectedRating,
+          sortValue,
+        });
+
+        // Фильтруем товары
+        let filteredProducts = allProducts.filter((product) => {
+          const matchesSearch =
+            !searchValue || product.name.toLowerCase().includes(searchValue);
+          const matchesCategory =
+            !selectedCategory || product.category === selectedCategory;
+          const matchesRating =
+            !selectedRating || product.rating === selectedRating;
+
+          return matchesSearch && matchesCategory && matchesRating;
+        });
+
+        console.log("Filtered products count:", filteredProducts.length);
+
+        // Сортируем товары
+        switch (sortValue) {
+          case "price-low-high":
+            filteredProducts.sort((a, b) => a.price - b.price);
+            break;
+          case "price-high-low":
+            filteredProducts.sort((a, b) => b.price - a.price);
+            break;
+          default:
+            break;
+        }
+
+        // Отображаем отфильтрованные товары
+        displayProducts(filteredProducts);
+      }
+
+      async function loadProducts() {
+        console.log("Loading products...");
+
+        try {
+          // Попытка загрузить данные с сервера
+          const response = await fetch("http://localhost:8080/api/products");
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch products");
+          }
+
+          const products = await response.json();
+          allProducts = products;
+          console.log("Products loaded from server:", allProducts.length);
+        } catch (error) {
+          console.warn(
+            "Failed to load products from server, using mock data:",
+            error
+          );
+
+          // Используем тестовые данные если сервер недоступен
+          allProducts = createMockProducts();
+          console.log("Using mock products:", allProducts.length);
+        }
+
+        // Отображаем продукты и генерируем категории
+        displayProducts(allProducts);
+        generateCategories();
+
+        // Привязываем обработчики событий после создания элементов
+        setTimeout(() => {
+          attachEventListeners();
+        }, 100);
+
+        console.log("Initialization complete");
+      }
+
+      function displayProducts(productsToShow = allProducts) {
+        console.log("Displaying products:", productsToShow.length);
+
+        const container = document.querySelector(".products");
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        if (productsToShow.length === 0) {
+          // Показываем сообщение об отсутствии товаров
+          const noProductsMsg = document.createElement("div");
+          noProductsMsg.className = "no-products-msg";
+          noProductsMsg.textContent = "Məhsul tapılmadı.";
+          container.appendChild(noProductsMsg);
+          return;
+        }
+
+        productsToShow.forEach((product) => {
+          let stars = "";
+          for (let i = 0; i < product.rating; i++) {
+            stars += "⭐";
+          }
+
+          const productHTML = `
+            <div class="card product-card" data-category="${product.category}" data-rating="${product.rating}" data-product-id="${product.id}">
+              <img src="${product.image}" alt="${product.name}" />
+              <h2 class="product-name">${product.name}</h2>
+              <div class="price">$${product.price}</div>
+              <div class="stars">${stars}</div>
+              <button class="add-btn">View more</button>
+            </div>
+          `;
+          container.insertAdjacentHTML("beforeend", productHTML);
+        });
+
+        // После добавления карточек, привязываем к ним обработчики
+        attachProductCardListeners();
+      }
+
+      function generateCategories() {
+        console.log("Generating categories...");
+
+        const categoryContainer = document.querySelector(".filter-options");
+        if (!categoryContainer) return;
+
+        const uniqueCategories = new Set();
+
+        // Собираем уникальные категории
+        allProducts.forEach((product) => {
+          uniqueCategories.add(product.category);
+        });
+
+        console.log("Found categories:", Array.from(uniqueCategories));
+
+        // Очищаем контейнер категорий
+        categoryContainer.innerHTML = "";
+
+        // Генерируем список категорий
+        uniqueCategories.forEach((cat) => {
+          const categoryElement = document.createElement("button");
+          categoryElement.className = "category";
+          categoryElement.setAttribute("data-category", cat);
+          categoryElement.textContent =
+            cat.charAt(0).toUpperCase() + cat.slice(1);
+          categoryContainer.appendChild(categoryElement);
+        });
+
+        console.log("Categories generated");
+      }
+    </script>
+    <script src="./scripts/navbar.js"></script>
+  </body>
+</html>

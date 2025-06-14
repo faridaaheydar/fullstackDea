@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+
+  <body>
+    <div class="top-bar">
+      Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+      <a href="#">ShopNow</a>
+    </div>
+    <div class="header"></div>
+
+    <div class="cab"><p class="cart">Cart</p></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="p">Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="cart-product-list">
+        <!-- Products will be loaded here from database -->
+      </tbody>
+    </table>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-box">
+          <h3>Exclusive</h3>
+          <p>Subscribe</p>
+          <span>Get 10% off your first order</span>
+          <div class="subscribe">
+            <input type="email" placeholder="Enter your email" />
+            <button>➤</button>
+          </div>
+        </div>
+
+        <div class="footer-box">
+          <h3>Support</h3>
+          <p>111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</p>
+          <p>exclusive@gmail.com</p>
+          <p>+88015-88888-9999</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Account</h3>
+          <p>My Account</p>
+          <p>Login / Register</p>
+          <p>Cart</p>
+          <p>Wishlist</p>
+          <p>Shop</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Quick Link</h3>
+          <p>Privacy Policy</p>
+          <p>Terms Of Use</p>
+          <p>FAQ</p>
+          <p>Contact</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Download App</h3>
+          <p>Save $3 with App New User Only</p>
+          <div class="qr">
+            <img src="fotolar/qrcode.PNG" alt="QR Code" />
+            <div class="store-btns">
+              <img src="fotolar/google play.PNG" alt="Google Play" />
+              <img src="fotolar/app store.PNG" alt="App Store" />
+            </div>
+          </div>
+
+          <div class="socials">
+            <span><img src="fotolar/ftinin.PNG" alt="" class="ft" /></span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">© Copyright Rimel 2022. All right reserved</div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const username = localStorage.getItem("username");
+        const cartTableBody = document.querySelector(".cart-product-list");
+        let cartProducts = [];
+        let cartTotal = 0;
+
+        // Check if user is logged in
+        if (!username) {
+          showMessage("User not logged in.", "error");
+          return;
+        }
+
+        // Initialize cart
+        init();
+
+        function init() {
+          loadCartFromDatabase();
+          addCartSummary();
+        }
+
+        // Load cart products from database
+        function loadCartFromDatabase() {
+          fetch(`http://localhost:8080/api/cart/${username}`)
+            .then((response) => {
+              if (!response.ok) throw new Error("Failed to fetch cart");
+              return response.json();
+            })
+            .then((products) => {
+              cartProducts = products;
+              displayCartProducts();
+              calculateAndUpdateTotal();
+              updateLocalStorage();
+            })
+            .catch((err) => {
+              console.error("Error loading cart:", err);
+              showMessage("Error loading cart data", "error");
+            });
+        }
+
+        // Display cart products in table
+        function displayCartProducts() {
+          cartTableBody.innerHTML = "";
+
+          if (cartProducts.length === 0) {
+            cartTableBody.innerHTML = `
+              <tr>
+                <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
+                  <div>
+                    <h3>Your cart is empty</h3>
+                    <p>Start shopping to add items to your cart</p>
+                  </div>
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          cartProducts.forEach((product, index) => {
+            const row = document.createElement("tr");
+            const quantity = product.quantity || 1;
+            const subtotal = (product.price * quantity).toFixed(2);
+
+            row.innerHTML = `
+              <td>
+                <div class="product-info">
+                  <img src="${product.image || '#'}" alt="${product.name}" 
+                       style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;"
+                       onerror="this.src='https://via.placeholder.com/60x60/ccc/666?text=No+Image'">
+                  <span style="margin-left: 10px; font-weight: 500;">${product.name}</span>
+                </div>
+              </td>
+              <td class="product-price" style="font-weight: 600; color: #28a745;">$${product.price.toFixed(2)}</td>
+              <td>
+                <input type="number" value="${quantity}" min="1" max="99" 
+                       class="quantity-input" data-product-id="${product.id}" data-index="${index}"
+                       style="width: 60px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+              </td>
+              <td class="product-subtotal" style="font-weight: 600; color: #007bff;">$${subtotal}</td>
+              <td>
+                <button class="remove-btn" data-product-id="${product.id}" data-index="${index}"
+                        style="background-color: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                  Remove
+                </button>
+              </td>
+            `;
+
+            cartTableBody.appendChild(row);
+          });
+
+          addEventListeners();
+        }
+
+        // Add event listeners for quantity changes and remove buttons
+        function addEventListeners() {
+          // Quantity input changes
+          const quantityInputs = document.querySelectorAll(".quantity-input");
+          quantityInputs.forEach(input => {
+            input.addEventListener("input", function() {
+              const index = parseInt(this.getAttribute("data-index"));
+              const newQuantity = parseInt(this.value);
+              const productId = this.getAttribute("data-product-id");
+
+              if (newQuantity > 0 && newQuantity <= 99) {
+                updateProductQuantity(index, newQuantity, productId);
+              } else {
+                this.value = cartProducts[index].quantity || 1;
+                showMessage("Quantity must be between 1-99", "error");
+              }
+            });
+          });
+
+          // Remove buttons
+          const removeButtons = document.querySelectorAll(".remove-btn");
+          removeButtons.forEach(button => {
+            button.addEventListener("click", function() {
+              const index = parseInt(this.getAttribute("data-index"));
+              const productId = this.getAttribute("data-product-id");
+              removeProduct(index, productId);
+            });
+          });
+        }
+
+        // Update product quantity
+        function updateProductQuantity(index, newQuantity, productId) {
+          if (index >= 0 && index < cartProducts.length) {
+            cartProducts[index].quantity = newQuantity;
+            
+            // Update subtotal display
+            const row = document.querySelector(`[data-index="${index}"]`).closest('tr');
+            const subtotalCell = row.querySelector('.product-subtotal');
+            const newSubtotal = (cartProducts[index].price * newQuantity).toFixed(2);
+            subtotalCell.textContent = `$${newSubtotal}`;
+
+            // Update database
+            updateQuantityInDatabase(productId, newQuantity);
+            
+            // Recalculate total
+            calculateAndUpdateTotal();
+            updateLocalStorage();
+            showMessage("Quantity updated", "success");
+          }
+        }
+
+        // Remove product from cart
+        function removeProduct(index, productId) {
+          if (index >= 0 && index < cartProducts.length) {
+            const productName = cartProducts[index].name;
+            
+            if (confirm(`Remove "${productName}" from cart?`)) {
+              // Remove from database
+              removeFromDatabase(productId)
+                .then(() => {
+                  // Remove from local array
+                  cartProducts.splice(index, 1);
+                  
+                  // Refresh display
+                  displayCartProducts();
+                  calculateAndUpdateTotal();
+                  updateLocalStorage();
+                  showMessage("Product removed from cart", "success");
+                })
+                .catch(err => {
+                  console.error("Error removing product:", err);
+                  showMessage("Error removing product", "error");
+                });
+            }
+          }
+        }
+
+        // Update quantity in database
+        function updateQuantityInDatabase(productId, quantity) {
+          fetch(`http://localhost:8080/api/cart/${username}/${productId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ quantity: quantity })
+          })
+          .catch(err => {
+            console.error("Error updating quantity:", err);
+            showMessage("Error updating quantity", "error");
+          });
+        }
+
+        // Remove product from database
+        function removeFromDatabase(productId) {
+          return fetch(`http://localhost:8080/api/cart/${username}/${productId}`, {
+            method: 'DELETE'
+          });
+        }
+
+        // Calculate and update total
+        function calculateAndUpdateTotal() {
+          const subtotal = cartProducts.reduce((total, product) => {
+            const quantity = product.quantity || 1;
+            return total + (product.price * quantity);
+          }, 0);
+
+          const shipping = subtotal > 100 ? 0 : subtotal > 0 ? 5.99 : 0;
+          cartTotal = subtotal + shipping;
+
+          // Update cart summary display
+          updateCartSummaryDisplay(subtotal, shipping, cartTotal);
+        }
+
+        // Update cart summary display
+        function updateCartSummaryDisplay(subtotal, shipping, total) {
+          const subtotalEl = document.getElementById("subtotalAmount");
+          const shippingEl = document.getElementById("shippingAmount");
+          const totalEl = document.getElementById("totalAmount");
+
+          if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+          if (shippingEl) shippingEl.textContent = shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`;
+          if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Update localStorage with current cart data
+        function updateLocalStorage() {
+          const cartData = {
+            products: cartProducts,
+            total: cartTotal,
+            subtotal: cartProducts.reduce((total, product) => {
+              const quantity = product.quantity || 1;
+              return total + (product.price * quantity);
+            }, 0),
+            itemCount: cartProducts.reduce((total, product) => total + (product.quantity || 1), 0),
+            lastUpdated: new Date().toISOString()
+          };
+
+          localStorage.setItem("cartData", JSON.stringify(cartData));
+          localStorage.setItem("cartTotal", cartTotal.toFixed(2));
+          localStorage.setItem("cartCount", cartData.itemCount.toString());
+
+          // Update cart badge if exists
+          const cartBadge = document.querySelector(".cart-badge");
+          if (cartBadge) {
+            cartBadge.textContent = cartData.itemCount;
+            cartBadge.style.display = cartData.itemCount > 0 ? "block" : "none";
+          }
+        }
+
+        // Add cart summary section
+        function addCartSummary() {
+          if (document.querySelector(".cart-summary")) return;
+
+          const summaryHTML = `
+            <div class="cart-summary" style="
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                justify-content: center;
+                padding: 30px;
+                background-color: white;
+                border: 2px solid #333;
+                max-width: 400px;
+                font-family: Arial, sans-serif;
+                margin-top: 90px;
+                margin: 0 87.5px 0 auto;
+            ">
+                <h2 style="
+                    margin: 0 0 25px 0;
+                    color: #333;
+                    font-size: 24px;
+                    font-weight: 600;
+                ">Cart Total</h2>
+
+                <div class="summary-row" style="
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-bottom: 15px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid #e0e0e0;
+                ">
+                    <span style="color: #666; font-size: 16px;">Subtotal</span>
+                    <span id="subtotalAmount" style="color: #333; font-size: 16px; font-weight: 500;">$0.00</span>
+                </div>
+
+                <div class="summary-row" style="
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-bottom: 15px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid #e0e0e0;
+                ">
+                    <span style="color: #666; font-size: 16px;">Shipping</span>
+                    <span id="shippingAmount" style="color: #333; font-size: 16px; font-weight: 500;">Free</span>
+                </div>
+
+                <div class="summary-row" style="
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-bottom: 25px;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid #e0e0e0;
+                ">
+                    <span style="color: #333; font-size: 18px; font-weight: 600;">Total</span>
+                    <span id="totalAmount" style="color: #333; font-size: 18px; font-weight: 600;">$0.00</span>
+                </div>
+
+                <a href="./CheckOut.html" style="text-decoration: none; width: 100%;">
+                    <button id="checkoutBtn" style="
+                        width: 100%;
+                        padding: 15px;
+                        background-color: #e74c3c;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                    " onmouseover="this.style.backgroundColor='#c0392b'" onmouseout="this.style.backgroundColor='#e74c3c'">
+                        Proceed to Checkout
+                    </button>
+                </a>
+            </div>
+          `;
+
+          const table = document.querySelector("table");
+          table.insertAdjacentHTML("afterend", summaryHTML);
+        }
+
+        // Show message function
+        function showMessage(message, type = "info") {
+          const existingMessage = document.querySelector(".cart-message");
+          if (existingMessage) {
+            existingMessage.remove();
+          }
+
+          const messageDiv = document.createElement("div");
+          messageDiv.className = `cart-message message-${type}`;
+          messageDiv.innerHTML = message;
+
+          messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-out;
+          `;
+
+          switch (type) {
+            case "success":
+              messageDiv.style.backgroundColor = "#28a745";
+              break;
+            case "error":
+              messageDiv.style.backgroundColor = "#dc3545";
+              break;
+            case "info":
+              messageDiv.style.backgroundColor = "#17a2b8";
+              break;
+            default:
+              messageDiv.style.backgroundColor = "#6c757d";
+          }
+
+          if (!document.querySelector("style[data-cart-styles]")) {
+            const style = document.createElement("style");
+            style.setAttribute("data-cart-styles", "true");
+            style.textContent = `
+              @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+              }
+              @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+              }
+            `;
+            document.head.appendChild(style);
+          }
+
+          document.body.appendChild(messageDiv);
+
+          setTimeout(() => {
+            if (messageDiv.parentNode) {
+              messageDiv.style.animation = "slideOut 0.3s ease-in";
+              setTimeout(() => {
+                if (messageDiv.parentNode) {
+                  messageDiv.remove();
+                }
+              }, 300);
+            }
+          }, 4000);
+        }
+
+        // Public API for external use
+        window.cartManager = {
+          refreshCart: loadCartFromDatabase,
+          getCartTotal: () => cartTotal,
+          getCartData: () => ({
+            products: cartProducts,
+            total: cartTotal,
+            itemCount: cartProducts.reduce((total, product) => total + (product.quantity || 1), 0)
+          })
+        };
+      });
+    </script>
+    <script src="./scripts/navbar.js"></script>
+  </body>
+</html>

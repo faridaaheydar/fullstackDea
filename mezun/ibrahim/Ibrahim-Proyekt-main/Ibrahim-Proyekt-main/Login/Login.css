@@ -1,0 +1,121 @@
+
+.login-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 300px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.7rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient( #fa5454, #e95a5a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#loginMessage {
+    margin-top: 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+   background: linear-gradient( #fa5454, #e95a5a);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.form-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.form-box p {
+    color: #777;
+    margin-bottom: 1.5rem;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.9rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+input:focus {
+  background: linear-gradient( #fa5454, #e95a5a);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 0.9rem;
+   background: linear-gradient( #fa5454, #e95a5a);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: linear-gradient( #fa5454, #e95a5a);
+}
+
+.message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.hint {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+.hint a {
+  color: linear-gradient( #fa5454, #e95a5a);
+    text-decoration: none;
+    font-weight: 600;
+}   

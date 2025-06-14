@@ -1,0 +1,144 @@
+#frst{
+    max-width: 100%;
+    height: 48px;
+    background-color: #DB4444;
+    display: block;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#white1{
+    color: white;
+    margin: 0px 5px;
+    font-style: solid;
+}
+
+body{
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+#navbar {
+    padding: 20px; 
+}
+  
+#nav-link {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+}
+  
+#nav-link li {
+   
+    margin-right: 40px;
+
+    
+}
+  
+#nav-link a {
+    font-family: 'Poppins', sans-serif; 
+    font-size: 18px; 
+    text-decoration: none;
+    color: black;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+  
+#nav-link a:hover {
+    color:  #DB4444;
+}
+
+#logo{
+   font-size: 24px;
+   margin-right: 30px;
+   margin-left:50px ;
+   font-weight: 700;
+   line-height: 24px;
+   letter-spacing: 0.72px;
+}
+
+#nav-btn{
+    background-color: #DB4444;
+    color: white;
+    width: 78px;
+    height: 32px;
+    border:0px;
+    border-radius: 4px;
+
+}
+.search-input{
+    width: 300px;
+    margin-left: 70px;
+}
+
+#btn-logout{
+    background-color: #DB4444;
+    width: 78px;
+    height: 32px;
+    color: white;
+    border: 0px;
+    border-radius: 4px;
+    margin-left: 10px;
+
+}
+
+#createbtn{
+    width: 358px;
+    height: 50px;
+    background-color: #DB4444;
+    border: 0px;
+}
+
+#loginbtn{
+    color: #DB4444;
+    text-decoration: none;
+}
+
+#logindiv{
+    text-align: center;
+}
+
+#createaccountdiv{
+    text-align: center;
+}
+
+.form-control:invalid ~ .invalid-feedback {
+    display: block !important;
+  }
+
+.form-control:valid ~ .valid-feedback {
+    display: block !important;
+}
+
+.search-input{
+    width: 180px;
+    height: 30px;
+    background-color: #F5F5F5;
+    border: none;
+    align-items: center;
+}
+#FooterMain{
+    width: 100%;
+    height: 500px;
+    background-color: #DB4444;
+    margin: 200px 0px 0px 0px;
+    color: white;
+    align-items: center;
+}
+
+
+#Search11 {
+    transition: margin-left 0.3s ease;
+  }
+  

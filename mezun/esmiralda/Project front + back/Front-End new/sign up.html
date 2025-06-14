@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+  <link rel="stylesheet" href="./signUp.css">
+  </head>
+
+  <body>
+    <header class="navbar">
+  <div class="logo">E-commerce</div>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+    <a href="sign up.html">Sign Up</a>
+    <a href="shop.html" class="shop-btn">Shop</a>
+  </nav>
+  <div class="auth">
+    <input type="text" placeholder="What are you looking for?" />
+    <button>Log In</button>
+  </div>
+</header>
+
+
+    <form class="was-validated">
+      <div class="form-group">
+        <label for="user-name">Name</label>
+        <input
+          type="text"
+          name="user-fullname"
+          id="user-name"
+          class="form-control in"
+          required
+          minlength="2"
+          maxlength="30"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="user-surname">Surname</label>
+        <input
+          type="text"
+          name="user-surname"
+          id="user-surname"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          required
+          name="email"
+          id="email"
+          minlength="5"
+          maxlength="50"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          maxlength="30"
+          minlength="2"
+          required
+          name="username"
+          id="username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          maxlength="20"
+          minlength="6"
+          required
+          name="password"
+          id="password"
+        />
+      </div>
+
+      <button type="submit" class="btn-submit">Create account</button>
+      <p class="login-link">
+        Already have account? <a href="./login.html">Log in</a>
+      </p>
+    </form>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-box">
+      <h3>Exclusive</h3>
+      <p>Subscribe</p>
+      <p>Get 10% off your first order</p>
+      <input type="email" placeholder="Enter your email" class="footer-input" />
+    </div>
+
+    <div class="footer-box">
+      <h3>Support</h3>
+      <p>111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</p>
+      <p>exclusive@gmail.com</p>
+      <p>+88015-88888-9999</p>
+    </div>
+
+    <div class="footer-box">
+      <h3>Account</h3>
+      <ul>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">Login / Register</a></li>
+        <li><a href="#">Cart</a></li>
+        <li><a href="#">Wishlist</a></li>
+        <li><a href="#">Shop</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-box">
+      <h3>Quick Link</h3>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms Of Use</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-box">
+      <h3>Download App</h3>
+      <p>Save $3 with App New User Only</p>
+      <div class="qr">
+        <img src="fotolar/qrcode.PNG" alt="QR Code"/>
+        <div class="store-btns">
+          <img src="fotolar/app store.PNG" alt="App Store" />
+          <img src="fotolar/google play.PNG" alt="Google Play" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2025 E-commerce. All rights reserved.
+  </div>
+</footer>
+
+    <script>
+      document
+        .querySelector(".was-validated")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = {
+            name: document.getElementById("user-name").value,
+            surname: document.getElementById("user-surname").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            username: document.getElementById("username").value,
+          };
+
+          try {
+            const response = await fetch("http://localhost:8080/api/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+              alert("Registration completed successfuly");
+              window.location.href = "login.html";
+            } else {
+              const errorText = await response.text();
+              alert("Error: " + errorText);
+            }
+          } catch (error) {
+            alert("Connection error: " + error.message);
+          }
+        });
+    </script>
+
+    <script src="./scripts/navbar.js"></script>
+  </body>
+</html>

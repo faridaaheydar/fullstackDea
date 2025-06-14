@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+
+    <link rel="stylesheet" href="login.css" />
+  </head>
+
+  <body>
+    <div class="top-bar">
+      Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+      <a href="#">ShopNow</a>
+    </div>
+    <div class="header">
+      <div class="logo">E-commerce</div>
+      <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./about.html">About</a>
+        <a href="./sign up.html">Sign Up</a>
+        <a href="./shop.html"><button class="shop-btn">Shop</button></a>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="What are you looking for?" />
+      </div>
+      <div class="user-section">
+        <span>Guest</span>
+      </div>
+      <div>
+        <a href="./login.html"><button class="logout-btn">Log In</button></a>
+      </div>
+    </div>
+    <div class="log">
+      <p class="in">Log in</p>
+    </div>
+    <form class="was-validated" id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          maxlength="30"
+          minlength="2"
+          required
+          name="username"
+          id="username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          maxlength="20"
+          minlength="6"
+          required
+          name="password"
+          id="password"
+        />
+
+        <button type="submit" id="logInbtn" class="btn-submit">Log in</button>
+        <p id="loginMessage" style="color: red; margin-top: 10px"></p>
+      </div>
+    </form>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-box">
+          <h3>Exclusive</h3>
+          <p>Subscribe</p>
+          <span>Get 10% off your first order</span>
+          <div class="subscribe">
+            <input type="email" placeholder="Enter your email" />
+            <button>➤</button>
+          </div>
+        </div>
+
+        <div class="footer-box">
+          <h3>Support</h3>
+          <p>111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</p>
+          <p>exclusive@gmail.com</p>
+          <p>+88015-88888-9999</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Account</h3>
+          <p>My Account</p>
+          <p>Login / Register</p>
+          <p>Cart</p>
+          <p>Wishlist</p>
+          <p>Shop</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Quick Link</h3>
+          <p>Privacy Policy</p>
+          <p>Terms Of Use</p>
+          <p>FAQ</p>
+          <p>Contact</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Download App</h3>
+          <p>Save $3 with App New User Only</p>
+          <div class="qr">
+            <img src="fotolar/qrcode.PNG" alt="QR Code" />
+            <div class="store-btns">
+              <img src="fotolar/google play.PNG" alt="Google Play" />
+              <img src="fotolar/app store.PNG" alt="App Store" />
+            </div>
+          </div>
+
+          <div class="socials">
+            <span><img src="fotolar/ftinin.PNG" alt="" class="ft" /></span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">© Copyright Rimel 2022. All right reserved</div>
+    </footer>
+
+    <script>
+      document
+        .querySelector(".was-validated")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch("http://localhost:8080/api/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password }),
+            });
+
+            const messageElement = document.getElementById("loginMessage");
+
+            if (response.ok) {
+              localStorage.setItem("isLoggedIn", "true");
+              localStorage.setItem(
+                "username",
+                document.getElementById("username").value
+              );
+              messageElement.textContent = "Success log in!";
+              window.location.href = "index.html";
+            } else {
+              const errorText = await response.text();
+              messageElement.textContent = "Error: " + errorText;
+            }
+          } catch (err) {
+            console.error(err);
+            alert("Server is unavailable");
+          }
+        });
+    </script>
+  </body>
+</html>

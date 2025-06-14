@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Info</title>
+  <link rel="stylesheet" href="user.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1 class="logo">E-commerce</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../Index/index.html">Home</a></li>
+          <li><a href="../contact/contact.html">Contact</a></li>
+          <li><a href="../Our_story/our_story.html">About</a></li>
+          <li><a href="../product_details/product_details.html">Shop</a></li>
+          <li><a href="../user-product/user-products.html">My Products for Sale</a></li>
+          <li><a href="../Login/Login.html" id="loginBtn">Login</a></li>
+          <li id="profileIcon" style="display: none;"><a href="user.html"><i class="bi bi-person-circle"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="user-box">
+      <h2>User Details</h2>
+      <p><strong>Name:</strong> <span id="name">...</span></p>
+      <p><strong>Email:</strong> <span id="email">...</span></p>
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById("profileIcon").style.display = "inline";
+      document.getElementById("loginBtn").style.display = "none";
+
+      fetch('http://localhost:8084/user/my-info', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          if (response.status === 401) {
+            alert("Yetkisiz giriş. Yenidən daxil olun.");
+          } else {
+            alert("Xəta baş verdi: " + response.status);
+          }
+          window.location.href = "../Login/Login.html";
+          return null;
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data) {
+          document.getElementById("name").textContent = data.name || "";
+          document.getElementById("email").textContent = data.email || "";
+        }
+      })
+      .catch(error => {
+        alert("Xəta: Server cavab vermədi və ya bağlantı problemi oldu.");
+        console.error("Fetch error:", error);
+        window.location.href = "../Login/Login.html";
+      });
+    }
+  </script>
+</body>
+</html>

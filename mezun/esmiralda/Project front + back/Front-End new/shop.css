@@ -1,0 +1,393 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.top-bar {
+  background-color: #e75147;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+}
+
+.top-bar a {
+  color: rgb(255, 253, 253);
+  font-weight: bold;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  padding-right: 15px;
+}
+
+.nav-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  padding-right: 16px;
+}
+
+.nav-links a:hover {
+  color: #f44336;
+}
+
+.shop-btn {
+  background-color: #e44337;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.shop-btn:hover {
+  background-color: #c73131;
+}
+
+.search-bar {
+  flex-grow: 1;
+  margin: 0 20px;
+  padding-right: 70px;
+}
+
+.search-bar input {
+  width: 50%;
+  padding: 9px;
+  font-size: 16px;
+  border: 0px solid #cac6c6;
+  color: rgb(216, 216, 216);
+  background-color: #eeebeb;
+  border-radius: 4px;
+  padding-left: -50px;
+  padding-right: -50px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.logout-btn {
+  background-color: #df4136;
+  color: white;
+  border: 1px solid #c9473e;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.logout-btn:hover {
+  background-color: #c03232;
+}
+
+.s {
+  padding-left: 139px;
+  padding-top: 36px;
+}
+
+.o {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 540;
+  font-size: 29px;
+}
+
+.search-barr {
+  padding-right: 40px;
+  padding-top: -60px;
+  margin-top: -20px;
+  padding-left: -60px;
+}
+
+.h {
+  width: 150px;
+  height: 27px;
+  border-color: #c0c0c0;
+  border: black 1px solid;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.btn-prdct {
+  margin-top: -32px;
+  margin-left: 174px;
+}
+
+.prod {
+  background-color: #e45045;
+  color: white;
+  width: 115px;
+  height: 40px;
+  border: 0px;
+  border-radius: 6px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  margin-top: -7px;
+}
+
+.c {
+  font-weight: 570;
+  font-size: 27px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.categories {
+  text-align: flex-start;
+}
+
+.category {
+  font-weight: 570;
+  font-size: 17px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.category:hover {
+  background-color: #e9ecef;
+}
+
+.category.active {
+  background-color: #e45045;
+  color: white;
+}
+
+.footer {
+  background-color: #db4444;
+  color: white;
+  padding: 40px 20px;
+  font-family: sans-serif;
+  margin-top: 620px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-box h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+.footer-box p,
+.footer-box span {
+  font-size: 14px;
+  margin: 5px 0;
+  padding-top: 14px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.subscribe {
+  display: flex;
+  margin-top: 10px;
+}
+
+.subscribe input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  flex: 1;
+}
+
+.subscribe button {
+  padding: 8px 12px;
+  background: white;
+  color: #db4444;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.qr {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.qr img {
+  width: 80px;
+}
+
+.store-btns img {
+  width: 100px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.socials {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.socials span {
+  padding: 6px;
+}
+
+.ft {
+  width: 160px;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 30px;
+  opacity: 0.8;
+}
+
+.products {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 0;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  width: 180px;
+  max-height: 400px;
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product-name {
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.price {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.stars {
+  color: #f1c40f;
+  margin: 5px 0;
+}
+
+.add-btn {
+  margin-top: 10px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.secim {
+  margin-left: 170px;
+  margin-top: 5px;
+}
+
+.rate-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.rate-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.star-row {
+  margin: 4px 0;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.star-row:hover {
+  background-color: #f0f0f0;
+}
+
+.star-row.active {
+  background-color: #e45045;
+  color: white;
+}
+
+.sort {
+  width: 200px;
+  height: 30px;
+  border-color: #c0c0c0;
+  border: black 1px solid;
+  border-radius: 3px;
+  color: #2c3e50;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.col {
+  flex: 1;
+}
+
+.categories {
+  flex: 0 0 250px;
+}
+
+.no-products-msg {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 18px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  grid-column: 1 / -1;
+}

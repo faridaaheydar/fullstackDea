@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Checkout</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <p>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#" class="shop-now">Shopnow</a>
+        </p>
+    </div>
+
+    <header class="header">
+        <div class="container header-content">
+            <h1><a style="color: black;" href="/">E-commerce</a></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/register/">Sign Up</a></li>
+                    <li><a href="/shop/" class="active">Shop</a></li>
+                </ul>
+            </nav>
+            <div class="search-login">
+                <div class="search-box">
+                    <input type="text" placeholder="What are you looking for?">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="btn log-in">Log in</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container checkout-container">
+            <div class="checkout-form-section">
+                <h2>Billing Details</h2>
+                <form id="billingForm" class="billing-form">
+                    <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <input type="text" id="firstName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input type="text" placeholder="Enter your lastname" id="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select id="state" required>
+                            <option value="">Choose...</option>
+                            <option value="istanbul">İstanbul</option>
+                            <option value="ankara">Ankara</option>
+                            <option value="izmir">İzmir</option>
+                            <option value="baku">Baku</option>
+                            <option value="ganja">Ganja</option>
+                            <option value="absheron">Absheron</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" placeholder="Enter your city" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" placeholder="Enter your address" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip">Zip</label>
+                        <input type="text" placeholder="Enter your zip" id="zip" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">Tel</label>
+                        <input type="tel" placeholder="Enter your number" id="tel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" placeholder="Enter your email" id="email" required>
+                    </div>
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Agree to <b><a style="color: blue;" href="/prank/">terms and
+                                    conditions</a></b></label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="payment-summary-section">
+                <h2>Payment Details</h2>
+                <div class="card-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
+                        alt="Mastercard">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/1200px-Visa_2021.svg.png"
+                        alt="Visa">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg"
+                        alt="American Express">
+                    <img src="https://play-lh.googleusercontent.com/EbIw2XpbAvJtjWytHK5SMtUXvu0ASUyAc7jbsi1GfqlX8qbXaZF8F_NqWHdcG0Pgpys"
+                        alt="Discover">
+                    <img src="https://pngate.com/wp-content/uploads/2025/05/DinersClub-logo-symbol-payment-method-1.png"
+                        alt="Diners Club">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"
+                        alt="Crypto">
+                </div>
+                <form id="paymentForm" class="payment-form">
+                    <div class="form-group">
+                        <label for="cardNumber">Card number</label>
+                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expMonth">Expiration(MM)</label>
+                            <input type="text" id="expMonth" placeholder="MM" maxlength="2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expYear">Expiration(YY)</label>
+                            <input type="text" id="expYear" placeholder="YY" maxlength="2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">Card security code</label>
+                            <input type="text" id="cvv" placeholder="CVV" maxlength="3" required>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="order-summary">
+                    <p>Subtotal: <span id="subtotal">$189.99</span></p>
+                    <p>Shipping: <span>FREE</span></p>
+                    <p class="total-price">Total: <span id="total">$189.99</span></p>
+                </div>
+                <button type="submit" class="btn place-order-btn" form="paymentForm">Place order</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-section exclusive">
+                <h3>Exclusive</h3>
+                <p>Get 10% off your first order</p>
+                <form class="subscribe-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <p>111 Bijoy sarani, Dhaka, <br>DH 1515, Bangladesh.</p>
+                <p>exclusive@gmail.com</p>
+                <p>+88015-8888-9999</p>
+            </div>
+            <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Login / Register</a></li>
+                    <li><a href="#">Cart</a></li>
+                    <li><a href="#">Wishlist</a></li>
+                    <li><a href="#">Shop</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Link</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section download-app">
+                <h3>Download App</h3>
+                <p>Save $3 with App New User Only</p>
+                <div class="app-stores">
+                    <img src="images/qr-code.png" alt="QR Code">
+                    <div class="app-badges">
+                        <img src="images/google-play.png" alt="Google Play">
+                        <img src="images/app-store.png" alt="App Store">
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; Copyright Iitemel 2022. All right reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

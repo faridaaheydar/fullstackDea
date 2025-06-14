@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App Landing Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+           
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <span>Free delivery on orders over 50$</span>
+                <nav>
+                    <ul>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="cart/">Order & Return</a></li>
+                        <li>Hi,<a href="register/"> Sign In</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="https://bing.com/th/id/BCO.c1ee862b-9884-4f2e-a396-dd11c163af1d.png" alt="Logo">
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="about/">About</a></li>
+                        <li><a href="product-page/">Products</a></li>
+                        <li><a href="contact/">Contact</a></li>
+                        <li><a href="#">Pages</a></li>
+                    </ul>
+                </nav>
+                <div class="header-icons">
+
+                    <a href="cart/"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="user-details/index.html"><img src="user.png" alt=""></a>
+                     <a id="profileIcon" style="display: none;"></a>
+     
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <img id="iphone15proImg" src="https://m.media-amazon.com/images/I/81CgtwSII3L._AC_UF1000,1000_QL80_.jpg" alt="iPhone 15 Pro" class="hero-iphone">
+            </div>
+        </section>
+
+        <section class="shop-collection">
+            <div class="container">
+                <h2>Shop Collection</h2>
+                <div class="collection-grid">
+                    <div class="collection-item large-item">
+                        <img src="https://manbands.co.uk/wp-content/uploads/2021/04/10977-mwxydv.jpeg" alt="Headband">
+                        <h3>Headband</h3>
+                        <p>Headband is a versatile accessory designed for comfort and style. Whether you're working out,
+                            running errands, or just relaxing at home, it keeps hair in place and absorbs sweat with
+                            ease. Made from soft, stretchy materials, it fits all head sizes and adds a touch of flair
+                            to any outfit — both functional and fashionable.</p>
+                    </div>
+                    <div class="collection-item">
+                        <img src="https://www.lapcare.com/cdn/shop/files/1_2.jpg?v=1747984380" alt="Earbuds">
+                        <h3>Earbuds</h3>
+                        <p>Earbuds offer a compact and comfortable way to enjoy high-quality sound on the go. Designed
+                            with advanced audio technology, they deliver clear highs, deep bass, and noise isolation for
+                            an immersive listening experience. With wireless connectivity, touch controls, and a sleek
+                            charging case, earbuds are perfect for music, calls, workouts, and everyday use — all
+                            without the hassle of wires.</p>
+                    </div>
+                    <div class="collection-item">
+                        <img src="https://bobbysfashions.com/wp-content/uploads/2018/05/Style-Accessories-for-Men.jpg"
+                            alt="Accessories">
+                        <h3>Accessories</h3>
+                        <p>Accessories are the perfect way to complete your look and express your personal style. From
+                            fashion-forward pieces like bags, jewelry, and sunglasses to tech essentials like chargers,
+                            cases, and smartwatches — accessories add both function and flair to your everyday life.
+                            Whether you're dressing up or keeping it casual, the right accessories make all the
+                            difference.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="promotion-section">
+            <div class="container">
+                <div class="promotion-content">
+                    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/special-promo-headphone-design-template-51ff1a6f92dde9670b67f8f09c1e5a3f_screen.jpg?ts=1683092415"
+                        alt="Headphone Promotion" class="promotion-headphone">
+                    <div class="promotion-text">
+                        <span>Promotion</span>
+                        <h2>Hurry up! 40% OFF</h2>
+                        <p>Remaining of the time is running out</p>
+                        <div class="countdown" id="countdown">
+                            <div><span class="days">00</span> Days</div>
+                            <div><span class="hours">00</span> Hrs</div>
+                            <div><span class="minutes">00</span> Min</div>
+                            <div><span class="seconds">00</span> Sec</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="special-promotion">
+            <div class="container">
+                <span>Our Exclusive</span>
+                <h2>iPhone 14 Pro</h2>
+                <button class="shop-now-button">Shop Now</button>
+                <img src="your-special-iphone-image.png" alt="iPhone 14 Pro" class="special-iphone-image">
+            </div>
+        </section>
+
+        <section class="feedback-corner">
+            <div class="container">
+                <h2>Feedback Corner</h2>
+                <div class="feedback-grid">
+                    <div class="feedback-item">
+                        <p class="quote">"This is an amazing product, I'm so happy with my purchase. The quality is
+                            top-notch!"</p>
+                        <p class="author">- Jane Doe</p>
+                    </div>
+                    <div class="feedback-item">
+                        <p class="quote">"Great customer service and fast shipping. I highly recommend this store to
+                            everyone."</p>
+                        <p class="author">- John Smith</p>
+                    </div>
+                    <div class="feedback-item">
+                        <p class="quote">"I love my new headphones! The sound quality is incredible. Will definitely buy
+                            again."</p>
+                        <p class="author">- Sarah Lee</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="explore-products">
+            <div class="container">
+                <h2>Explore Our Products</h2>
+                <div class="product-grid">
+                    <div class="product-item">
+                        <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-ipad-pro-12-wificell-spacegray-2021?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=NlFPcjRNNHN6R2NSYmRWVHhzR3RnbVozYVYwY2xvUmRnZ3BmVkNwWFBvMlJDS2xkR2c1WHhaOHo4ZlRDQjFMQ0ZEQ3pMRG1TTDF6QzdJSC9OSmxGWXpNZGEwYVUyTzcvZlg1UkxwTzJQS1ZKUklGWnMvN3VSemtnVGdiTjJteFg"
+                            alt="Product 1">
+                        <h3>iPad Pro</h3>
+                        <p>iPad Pro is Apple’s most advanced tablet, designed to deliver desktop-class performance in a
+                            sleek, portable form. Powered by the Apple M-series chip, it features a stunning Liquid
+                            Retina display with ProMotion, ultra-fast 5G and Wi-Fi connectivity, and support for Apple
+                            Pencil and Magic Keyboard. Whether you're editing 4K videos, designing in 3D, taking notes,
+                            or multitasking, iPad Pro gives you the power and flexibility to do it all — anytime,
+                            anywhere.</p>
+                        <button class="shop-now-button">Shop Now</button>
+                    </div>
+                    <div class="product-item">
+                        <img src="https://suprememobiles.in/cdn/shop/files/Samsung_galaxy_A35.webp?v=1739794321"
+                            alt="Product 2">
+                        <h3>Samsung Galaxy A35</h3>
+                        <p>Samsung Galaxy combines cutting-edge technology with elegant design to deliver a premium
+                            smartphone experience. With a powerful processor, high-resolution cameras, vibrant AMOLED
+                            display, and long-lasting battery, it’s built for both everyday tasks and demanding
+                            performance. Running on Android, Galaxy offers flexibility, advanced security features, and
+                            5G connectivity to keep you ahead in a fast-paced world.</p>
+                        <button class="shop-now-button">Shop Now</button>
+                    </div>
+                    <div class="product-item">
+                        <img src="https://www.bhphotovideo.com/images/fb/apple_mx2h3ll_a_14_macbook_pro_m4_1859567.jpg"
+                            alt="Product 3">
+                        <br>
+                        <h3>Macbook Pro</h3>
+                        <p>MacBook Pro is Apple’s high-performance laptop, designed for professionals and power users.
+                            Featuring a stunning Retina display, ultra-fast M-series chips (M1, M2, or M3), long-lasting
+                            battery life, and macOS integration, it delivers unmatched speed, efficiency, and creativity
+                            on the go. With its sleek aluminum body, Magic Keyboard, advanced cooling system, and
+                            studio-quality microphones, the MacBook Pro is ideal for coding, video editing, design, and
+                            all demanding workflows.</p>
+                        <button class="shop-now-button">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-columns">
+                <div class="footer-col about-us">
+                    <h3>Exclusive Subscriber</h3>
+                    <p>Subscribe to our newsletter for exclusive offers and updates.</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+                <div class="footer-col company">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col support">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Legal</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col quick-link">
+                    <h3>Quick Link</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="shop/">Shop</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Trending</a></li>
+                        <li><a href="#">Sales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col contact">
+                    <h3>Contact Us</h3>
+                    <p>123 Street Name, City, Country</p>
+                    <p>+123 456 7890</p>
+                    <p>info@example.com</p>
+                    <div class="social-icons">
+                        <a href="#"><img src="your-facebook-icon.png" alt="Facebook"></a> <a href="#"><img
+                                src="your-twitter-icon.png" alt="Twitter"></a>
+                        <a href="#"><img src="your-instagram-icon.png" alt="Instagram"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+                <img id="paymentMtds" src="https://toppng.com/uploads/preview/visa-logo-png-11661940047ddydshoojj.png"
+                    alt="Payment Methods">
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Create product</title>
+    <link rel="stylesheet" href="/css/css/CreateProduct.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div id="frst">
+            <p>
+                <br>
+                Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+
+                <a href="index.html" id="white1"> ShopNow</a>
+            </p>
+
+        </div>
+        <br />
+        <div>
+            <nav id="navbar">
+                <ul id="nav-link">
+                    <li id="logo">E-commerce</li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li id="lastli"><button id="nav-btn" onclick="changeToPsPage()">Shop</button></li>
+                    <li>
+                        <input type="text" placeholder="    What are you looking for?" class="search-input"
+                            style="width: 210px; align-items: center;"> <i class="fa fa-search"
+                            style="font-size:18px"></i>
+
+
+
+
+                        <button id="btn-logout">Log out</button>
+                    </li>
+                </ul>
+                <hr />
+            </nav>
+    </header>
+
+
+    <h2 id="H2Design">Create product</h2>
+    <form id="productForm">
+
+        <label for="brand" class="labelclass">Brand</label>
+        <br>
+        <input type="text" id="brand" required class="input1">
+        <br>
+        <label for="brand" class="labelclass">Model</label>
+        <br>
+        <input type="text" id="model" required class="input1">
+        <br>
+        <label for="brand" class="labelclass">Category</label>
+        <br>
+        <input type="text" id="category" required class="input1">
+        <br>
+        <label for="brand" class="labelclass">Description</label>
+        <br>
+        <textarea id="description" required></textarea>
+        <br>
+        <label for="brand" class="labelclass">Price</label>
+        <br>
+        <input type="number" step="0.01" id="price" required class="input1">
+        <br>
+        <label for="brand" class="labelclass">Rating</label>
+        <br>
+        <input type="number" step="0.1" id="rating" required class="input1">
+        <br>
+        <label for="brand" class="labelclass">Image URL</label>
+        <br>
+        <input type="text" id="image" oninput="previewImage()" required class="input1">
+        <br>
+        <img id="preview" src="#" alt="Preview" class="Formfoot1">
+        <br>
+        <button type="submit" class="Formfoot2">Save</button>
+        <button type="reset" class="Formfoot3">Reset</button>
+    </form>
+    <p id="formMessage" style="margin-top: 10px;"></p>
+    <br>
+    <footer id="FooterMain">
+        <br> <br> <br> <br> <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5><strong>Exclusive</strong></h5>
+                    <p class="mt-3 mb-1"><strong>Subscribe</strong></p>
+                    <br>
+                    <p style="font-size: 14px;">Get 10% off your first order</p>
+                    <div class="input-group" style="width: 200px ;">
+                        <input type="email" class="form-control bg-transparent text-white border border-white"
+                            placeholder="Enter your email">
+                        <button class="btn border-white text-white" type="button">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <h5><strong>Support</strong></h5>
+                    <p class="mt-3 mb-1" style="font-size: 14px;">111 Bijoy sarani, Dhaka,</p>
+                    <p style="font-size: 14px;">DH 1515, Bangladesh.</p>
+                    <p style="font-size: 14px;">exclusive@gmail.com</p>
+                    <p style="font-size: 14px;">+88015-88888-9999</p>
+                </div>
+
+                <div class="col-md-2 mb-4">
+                    <h5><strong>Account</strong></h5>
+                    <ul class="list-unstyled mt-3" style="font-size: 14px;">
+                        <li class="mb-1">My Account</li>
+                        <li class="mb-1">Login / Register</li>
+                        <li class="mb-1">Cart</li>
+                        <li class="mb-1">Wishlist</li>
+                        <li>Shop</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2 mb-4">
+                    <h5><strong>Quick Link</strong></h5>
+                    <ul class="list-unstyled mt-3" style="font-size: 14px; ">
+                        <li class="mb-1">Privacy Policy</li>
+
+                        <li class="mb-1" style="font-size: 14px; margin-top: 15px;">Terms Of Use</li>
+
+                        <li class="mb-1" style="font-size: 14px; margin-top: 15px;">FAQ</li>
+
+                        <li style="font-size: 14px; margin-top: 15px;">Contact</li>
+                    </ul>
+                </div>
+
+
+                <div class="col-md-2 mb-4">
+                    <h5><strong>Download App</strong></h5>
+                    <p class="mt-3" style="font-size: 12px;">Save $3 with App New User Only</p>
+                    <div class="d-flex align-items-center">
+                        <img src="/img/991387c05dd6d44594e01b675513068803e2426d.jpg" alt="QR Code" width="60">
+                        <div class="d-flex flex-column ms-2">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                                alt="Google Play" style="width:100px; margin-bottom: 5px;">
+                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                                alt="App Store" style="width:100px;">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mt-3 fs-5">
+                        <i class="bi bi-facebook"></i>
+                        <i class="bi bi-twitter"></i>
+                        <i class="bi bi-instagram"></i>
+                        <i class="bi bi-linkedin"></i>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <hr style="margin: 20px -100px;">
+            <br>
+            <p style="margin:-10px 350px"> © Copyright Zuleyxa Kazimli 2025. Fullstack project</p>
+
+        </div>
+    </footer>
+    <script src="/js/CreateProduct.js"></script>
+</body>
+
+</html>

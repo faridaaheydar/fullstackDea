@@ -1,0 +1,483 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-red: #E84C4C; /* Kırmızı renk */
+    --text-dark: #333;
+    --text-light: #666;
+    --border-color: #ddd;
+    --bg-light: #f5f5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Top Announcement Bar */
+.top-announcement {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9em;
+}
+
+.top-announcement p {
+    margin: 0;
+}
+
+.top-announcement .shop-now {
+    color: #fff;
+    font-weight: 600;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+/* Header */
+.header {
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.main-nav ul {
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    color: var(--primary-red);
+}
+
+.main-nav .btn-shop {
+    background-color: var(--primary-red);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.main-nav .btn-shop:hover {
+    background-color: #c0392b;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    position: relative;
+    margin-right: 20px;
+}
+
+.search-bar input {
+    border: none;
+    background-color: var(--bg-light);
+    padding: 8px 10px;
+    padding-right: 30px; /* Icon için boşluk */
+    border-radius: 4px;
+    font-size: 0.9em;
+    outline: none;
+}
+
+.search-bar i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+.btn-login {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: var(--bg-light);
+}
+
+/* Create an Account Section */
+.create-account-section {
+    padding: 80px 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 250px); /* Header ve footer'ı hesaba katarak */
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 40px 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.form-container h2 {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.account-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.account-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 0.95em;
+}
+
+.account-form input[type="text"],
+.account-form input[type="email"],
+.account-form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1em;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.account-form input[type="text"]:focus,
+.account-form input[type="email"]:focus,
+.account-form input[type="password"]:focus {
+    border-color: var(--primary-red);
+    background-color: #fff;
+    outline: none;
+}
+
+.btn-create-account {
+    background-color: var(--primary-red);
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-create-account:hover {
+    background-color: #c0392b;
+}
+
+.login-prompt {
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: var(--text-light);
+}
+
+.login-prompt .login-link {
+    color: var(--primary-red);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.login-prompt .login-link:hover {
+    color: #c0392b;
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--primary-red);
+    color: #fff;
+    padding: 60px 0 20px;
+    font-size: 0.9em;
+}
+
+.footer-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.footer-column h3, .footer-column h4 {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-column p {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-column ul {
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #fff;
+}
+
+.footer-column.exclusive {
+    grid-column: span 1; /* İlk sütun daha geniş olabilir */
+}
+
+.subscribe-form {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.subscribe-form input {
+    border: none;
+    background: none;
+    padding: 10px 15px;
+    flex-grow: 1;
+    color: #fff;
+    outline: none;
+}
+
+.subscribe-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.subscribe-form button {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-form button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+.download-app .app-links img {
+    width: 120px;
+    height: 40px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .main-nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .main-nav ul li {
+        margin: 0 15px 10px;
+    }
+
+    .header-right {
+        margin-top: 10px;
+    }
+
+    .footer-content-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-column.exclusive {
+        grid-column: span 3; /* Exclusive sütunu daha geniş */
+        text-align: center;
+    }
+
+    .subscribe-form {
+        max-width: 300px;
+        margin: 15px auto 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+    }
+
+    .header-right {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-bar {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .search-bar input {
+        width: 100%;
+    }
+
+    .footer-content-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-column.exclusive {
+        grid-column: span 2;
+    }
+
+    .form-container {
+        padding: 30px;
+    }
+
+    .form-container h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-nav ul li {
+        margin: 5px 0;
+    }
+
+    .footer-content-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-column.exclusive {
+        grid-column: span 1;
+    }
+
+    .subscribe-form {
+        margin: 15px auto;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .download-app .app-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .download-app .app-links img {
+        margin: 5px 0;
+    }
+}

@@ -1,0 +1,425 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-red: #DB4444;
+    --dark-text: #222222;
+    --light-gray: #F5F5F5;
+    --medium-gray: #777777;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-text);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: var(--dark-text);
+    color: var(--white);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.85em;
+}
+
+.top-bar p {
+    margin: 0;
+}
+
+.top-bar .shop-now {
+    color: var(--white);
+    text-decoration: underline;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* Main Navigation */
+.main-nav {
+    border-bottom: 1px solid #E0E0E0;
+    padding: 20px 0;
+}
+
+.main-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-nav .logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--dark-text);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--dark-text);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: var(--primary-red);
+}
+
+.main-nav .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-gray);
+    border-radius: 4px;
+    padding: 8px 15px;
+}
+
+.main-nav .search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 0;
+    font-size: 0.9em;
+    width: 200px;
+}
+
+.main-nav .search-bar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--dark-text);
+    font-size: 1em;
+    margin-left: 10px;
+}
+
+.main-nav .log-in {
+    background-color: var(--primary-red);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.main-nav .log-in:hover {
+    background-color: #A03434;
+}
+
+/* Content Area */
+.content-area {
+    display: flex;
+    padding-top: 40px;
+    padding-bottom: 80px;
+    position: relative; /* For floating icons positioning */
+}
+
+.sidebar {
+    width: 250px;
+    margin-right: 40px;
+}
+
+.my-products-for-sale {
+    background-color: var(--primary-red);
+    color: var(--white);
+    padding: 15px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.user-details-section {
+    flex-grow: 1;
+    background-color: var(--white);
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.user-details-section h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--primary-red);
+}
+
+.user-info p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.user-info strong {
+    color: var(--dark-text);
+    display: inline-block;
+    width: 100px; /* Align the values */
+}
+
+/* Floating Icons */
+.floating-icons {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #FF00FF; /* Example color, adjust as needed */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 1.5em;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-text);
+    color: var(--white);
+    padding: 60px 0 20px;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-column h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--medium-gray);
+}
+
+.footer-column p {
+    font-size: 0.9em;
+    color: var(--medium-gray);
+    margin-bottom: 10px;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--primary-red);
+}
+
+.subscribe-input {
+    display: flex;
+    background-color: #333333;
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.subscribe-input input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 8px 10px;
+    color: var(--white);
+    flex-grow: 1;
+}
+
+.subscribe-input input::placeholder {
+    color: var(--medium-gray);
+}
+
+.subscribe-input button {
+    background: none;
+    border: none;
+    color: var(--medium-gray);
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 0 10px;
+}
+
+.app-downloads {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.app-downloads img {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+    border-radius: 4px;
+}
+
+.app-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.download-text {
+    font-size: 0.8em;
+    color: var(--medium-gray);
+    margin-bottom: 5px;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: var(--white);
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-red);
+}
+
+.copyright {
+    border-top: 1px solid #333333;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 40px;
+    font-size: 0.85em;
+    color: var(--medium-gray);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .main-nav .container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .main-nav ul {
+        width: 100%;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    .main-nav .search-bar,
+    .main-nav .log-in {
+        margin-top: 15px;
+    }
+
+    .content-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    .sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+    .user-details-section {
+        width: 100%;
+    }
+    .floating-icons {
+        position: static; /* Remove absolute positioning on smaller screens */
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .footer .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-column {
+        min-width: unset;
+        width: 100%;
+    }
+    .app-downloads {
+        justify-content: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav .search-bar input {
+        width: 150px;
+    }
+    .main-nav ul li {
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-nav .logo {
+        font-size: 1.3em;
+    }
+    .main-nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+    .main-nav ul li {
+        margin: 5px 0;
+    }
+    .user-info strong {
+        width: 80px;
+    }
+    .footer-column h3, .footer-column h4 {
+        font-size: 1.1em;
+    }
+    .footer-column p, .footer-column ul li a {
+        font-size: 0.85em;
+    }
+}

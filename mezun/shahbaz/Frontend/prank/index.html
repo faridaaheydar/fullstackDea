@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Just Do It Meme</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #111, #222);
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        #btn {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 10px;
+            background-color: #e50914;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #btn:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #shia {
+            width: 300px;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        #shia.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JUST DO IT!</h1>
+    <button id="btn">Make your dreams come true</button>
+    <img id="shia"
+        src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHBpNHkyb2dsa3h4YW5raWRzbDk1MnExZ2tnNDF1dnE3ZGd1cWczbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qDPg6HNz2NfAk/giphy.gif"
+        alt="Shia LaBeouf GIF">
+
+    <script>
+        const btn = document.getElementById("btn");
+        const shia = document.getElementById("shia");
+
+        btn.addEventListener("click", () => {
+            shia.classList.add("show");
+            const utter = new SpeechSynthesisUtterance("JUST DO IT!");
+            speechSynthesis.speak(utter);
+        });
+    </script>
+</body>
+
+</html>

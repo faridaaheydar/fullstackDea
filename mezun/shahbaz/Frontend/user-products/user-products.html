@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Panel - E-commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="user-products.css" />
+</head>
+
+<body>
+    <div class="top-banner">
+        Summer Sale! Up to 50% OFF – <a href="">Shop Now</a>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">E-commerce</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active"
+                            href="../Index/index.html"
+                            style="margin-left: 20px;">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link"
+                            href="/contact/"
+                            style="margin-left: 50px;">Contact</a>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link"
+                            href="/our_story/"
+                            style="margin-left: 50px;">Our
+                            Story</a></li>
+
+                    <a class="btn btn-outline-danger me-2" href="/register/"
+                        style="margin-left: 70px;">Sign Up</a>
+                </ul>
+                <form class="d-flex me-3">
+                    <input class="form-control me-2" type="search" id="searchInput" placeholder="Search..." />
+                </form>
+                <a class="btn btn-shop" href="../Login/index.html">Log In</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold">Product List</h3>
+            <button id="addBtn" class="btn btn-primary">+ Add New Product</button>
+
+        </div>
+        <div id="productGrid" class="table-box"></div>
+    </div>
+
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="productForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalTitle">Add Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="productId" />
+                        <div class="mb-3">
+                            <label>Product Name</label>
+                            <input type="text" id="productName" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Category</label>
+                            <input type="text" id="productCategory" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Price $</label>
+                            <input type="number" id="productPrice" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Description</label>
+                            <textarea id="productDescription" class="form-control" required></textarea>
+                        </div>
+                       <div class="mb-3">
+  <label>Image URL</label>
+  <input type="text" id="imageUrlInput" class="form-control" oninput="document.querySelector('#productModal .modal-body img').src = this.value" required />
+  <img src="" class="card-img-top mt-2" alt="preview" style="max-width: 100px;" />
+</div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-3">
+                    <h6>Exclusive</h6>
+                    <p>Subscribe to get 10% off your first order</p>
+                    <input type="email" placeholder="Enter your email" />
+                </div>
+                <div class="col-md-3">
+                    <h6>Support</h6>
+                    <p>111 Bijoy Sarani, Dhaka, Bangladesh</p>
+                    <p>Email: exclusive@gmail.com</p>
+                    <p>Phone: +88015-88888-9999</p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Account</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/user-details/">My Account</a></li>
+                        <li><a href="/register/">Login / Register</a></li>
+                        <li><a href="/cart/">Cart</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Download App</h6>
+                    <p>Save with our mobile app</p>
+                    <img src="googleplay.png" class="elfatta" />
+                    <img src="appstore.png" class="elfatta" />
+                </div>
+            </div>
+            <small class="mt-4" style="color: rgba(255, 255, 255, 0.321);">&copy; 2025 Rimel. All rights
+                reserved.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="user-products.js"></script>
+</body>
+
+</html>

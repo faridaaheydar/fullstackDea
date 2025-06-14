@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Product</title>
+    <link rel="stylesheet" href="createproduct.css" />
+  </head>
+  <body>
+    <div class="top-bar">
+      Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+      <a href="#">ShopNow</a>
+    </div>
+    <div class="header"></div>
+
+    <div class="container">
+      <h2>Create Product</h2>
+      <form id="productForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" required />
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3"></textarea>
+
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" required />
+
+        <label for="rating">Rating</label>
+        <select id="rating" name="rating" required>
+          <option value="">Select Rating</option>
+          <option value="1">1/5</option>
+          <option value="2">2/5</option>
+          <option value="3">3/5</option>
+          <option value="4">4/5</option>
+          <option value="5">5/5</option>
+        </select>
+
+        <label for="image">Image URL</label>
+        <input type="url" id="image" name="image" required />
+
+        <img id="preview" class="preview-img" alt="Preview" />
+
+        <div class="buttons">
+          <button type="submit" class="save-btn">Save</button>
+          <button type="reset" class="reset-btn">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-box">
+          <h3>Exclusive</h3>
+          <p>Subscribe</p>
+          <span>Get 10% off your first order</span>
+          <div class="subscribe">
+            <input type="email" placeholder="Enter your email" class="em" />
+            <button>➤</button>
+          </div>
+        </div>
+
+        <div class="footer-box">
+          <h3>Support</h3>
+          <p>111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</p>
+          <p class="EX">exclusive@gmail.com</p>
+          <p>+88015-88888-9999</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Account</h3>
+          <p>My Account</p>
+          <p>Login / Register</p>
+          <p>Cart</p>
+          <p>Wishlist</p>
+          <p>Shop</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Quick Link</h3>
+          <p>Privacy Policy</p>
+          <p>Terms Of Use</p>
+          <p>FAQ</p>
+          <p>Contact</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Download App</h3>
+          <p>Save $3 with App New User Only</p>
+          <div class="qr">
+            <img src="fotolar/qrcode.PNG" alt="QR Code" />
+            <div class="store-btns">
+              <img src="fotolar/google play.PNG" alt="Google Play" />
+              <img src="fotolar/app store.PNG" alt="App Store" />
+            </div>
+          </div>
+
+          <div class="socials">
+            <span><img src="fotolar/ftinin.PNG" alt="" class="ft" /></span>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">© Copyright Rimel 2022. All right reserved</div>
+    </footer>
+
+    <script>
+      const imageInput = document.getElementById("image");
+      const preview = document.getElementById("preview");
+
+      imageInput.addEventListener("input", () => {
+        const url = imageInput.value;
+        if (url) {
+          preview.src = url;
+          preview.style.display = "block";
+        } else {
+          preview.style.display = "none";
+        }
+      });
+
+      // Reset preview when form is reset
+      document.getElementById("productForm").addEventListener("reset", () => {
+        preview.style.display = "none";
+        preview.src = "";
+      });
+    </script>
+    <script>
+      document
+        .getElementById("productForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = localStorage.getItem("username");
+          if (!username) {
+            alert("Вы не вошли в аккаунт!");
+            return;
+          }
+
+          // Validate form data
+          const name = document.getElementById("name").value.trim();
+          const category = document.getElementById("category").value.trim();
+          const description = document.getElementById("description").value.trim();
+          const price = parseFloat(document.getElementById("price").value);
+          const rating = parseInt(document.getElementById("rating").value);
+          const image = document.getElementById("image").value.trim();
+
+          if (!name || !category || !image || isNaN(price) || isNaN(rating)) {
+            alert("Пожалуйста, заполните все обязательные поля корректно!");
+            return;
+          }
+
+          if (price < 0) {
+            alert("Цена не может быть отрицательной!");
+            return;
+          }
+
+          if (rating < 1 || rating > 5) {
+            alert("Рейтинг должен быть от 1 до 5!");
+            return;
+          }
+
+          const productData = {
+            name: name,                    // Изменено с model на name
+            category: category,
+            description: description,
+            price: price,
+            rating: rating,
+            image: image,
+            ownerUsername: username
+          };
+
+          console.log("Отправляем данные продукта:", productData);
+
+          fetch("http://localhost:8080/api/products", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(productData),
+          })
+            .then((response) => {
+              console.log("Статус ответа:", response.status);
+              if (!response.ok) {
+                return response.text().then(text => {
+                  throw new Error(`HTTP ${response.status}: ${text}`);
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Продукт создан:", data);
+              alert("Продукт успешно добавлен!");
+              window.location.href = "user products.html?newProduct=true";
+            })
+            .catch((error) => {
+              console.error("Ошибка при создании продукта:", error);
+              alert(`Ошибка при добавлении продукта: ${error.message}`);
+            });
+        });
+    </script>
+
+    <script src="./scripts/navbar.js"></script>
+  </body>
+</html>
